@@ -101,8 +101,8 @@ Feature: AI artifact approval
     Then the artifact should become approved
     And the engineer should be recorded as the approver
     And the artifact should become available as project knowledge
+```
 BDD scenarios should remain understandable without knowledge of:
-
 SQL.
 Entity Framework.
 React.
@@ -404,7 +404,7 @@ Fail due to external availability.
 Produce non-deterministic output.
 AI Evaluation Tests
 
-As the AI capabilities become more important, we should create evaluation scenarios.
+As AI capabilities become more important, we should create evaluation scenarios.
 
 For example:
 
