@@ -895,3 +895,149 @@ flowchart TD
     I --> L
     K --> L
     D --> L
+```
+Relationship to Domain Model
+
+The use cases validate and refine the Domain Model.
+
+For example:
+
+UC-008 — Review and Approve AI Artifact
+
+requires the concepts:
+
+User
+Project
+AIArtifact
+Approval
+ProjectKnowledge
+Activity
+
+If a use case cannot be expressed naturally using the existing domain concepts, the Domain Model may need to evolve.
+
+The Domain Model should therefore not be considered permanently fixed.
+
+Relationship to BDD
+
+The next step is to translate important use cases into executable behavioral scenarios.
+
+For example, UC-003 can produce:
+
+Feature: Project creation
+
+  Scenario: An authenticated engineer creates a project
+    Given an authenticated engineer
+    When the engineer creates a project named "AI Dev Platform"
+    Then a new active project should exist
+    And the engineer should have access to the project
+    And a project creation activity should be recorded
+
+UC-008 can produce:
+
+Feature: AI artifact approval
+
+  Scenario: An authorized engineer approves an AI-generated document
+    Given an AI-generated artifact awaiting review
+    And an authorized engineer has access to the project
+    When the engineer approves the artifact
+    Then the artifact should be marked as approved
+    And the engineer should be recorded as the approver
+    And the artifact should become available as project knowledge
+
+These scenarios describe expected behavior without committing to technical implementation.
+
+Relationship to TDD
+
+BDD scenarios describe important system behavior at a higher level.
+
+During implementation, those behaviors will be decomposed into smaller automated tests.
+
+The workflow will generally be:
+
+Product Requirement
+        ↓
+Use Case
+        ↓
+BDD Scenario
+        ↓
+Acceptance Criteria
+        ↓
+Failing Automated Test
+        ↓
+Implementation
+        ↓
+Passing Test
+        ↓
+Refactoring
+
+TDD will primarily be applied during implementation using the Red-Green-Refactor cycle:
+
+RED
+Write a failing test.
+
+        ↓
+
+GREEN
+Write the minimum implementation required to pass the test.
+
+        ↓
+
+REFACTOR
+Improve the design while keeping all tests passing.
+
+This allows the tests to help drive implementation rather than being added only after development is complete.
+
+Initial MVP Use Case Priority
+
+The implementation priority should approximately follow:
+
+Priority	Use Case
+P0	UC-001 — Register User
+P0	UC-002 — Authenticate User
+P0	UC-003 — Create Project
+P0	UC-004 — Manage Engineering Task
+P0	UC-005 — Create Engineering Document
+P0	UC-006 — Ask Project-Aware AI
+P0	UC-007 — Generate AI Artifact
+P0	UC-008 — Review and Approve AI Artifact
+P0	UC-009 — Record Technical Decision
+P0	UC-010 — Retrieve Project Knowledge
+P1	UC-011 — Archive Project
+P1	UC-012 — View Project Activity
+
+P0 represents functionality required to demonstrate the core MVP value proposition.
+
+P1 represents valuable functionality that may be simplified or deferred if necessary to maintain the MVP schedule.
+
+Open Questions Revealed by the Use Cases
+
+The use cases expose several decisions that should be resolved before or during detailed design:
+
+Should the MVP create an Organization automatically for every new user, or should Projects initially belong directly to Users?
+Can multiple users collaborate on a Project during the MVP?
+Which types of AI Artifact require explicit approval?
+Does edited AI-generated content remain an AI Artifact after substantial human modification?
+Exactly when does approved content become Project Knowledge?
+Should all Technical Decisions automatically become Project Knowledge?
+What portion of AI Conversation history should participate in future knowledge retrieval?
+What lifecycle states should AI Artifacts support?
+Do Tasks require configurable workflows in the future?
+How should Project ownership evolve into organization/team-based authorization?
+
+These questions should be resolved intentionally rather than accidentally through database or UI implementation.
+
+Current Status
+
+The current use cases are sufficient to begin defining behavioral scenarios and application boundaries.
+
+They are expected to evolve as:
+
+BDD scenarios reveal missing behavior.
+Domain rules become clearer.
+Technical constraints are discovered.
+User feedback becomes available.
+External integrations are introduced.
+
+The objective is not to predict every future interaction.
+
+The objective is to understand the core behaviors well enough to design and implement the MVP with confidence.
